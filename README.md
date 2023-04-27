@@ -1,3 +1,26 @@
+## rcpputils (rolling) - 2.7.0-1
+
+The packages in the `rcpputils` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling rcpputils` on `Thu, 27 Apr 2023 09:28:54 -0000`
+
+The `rcpputils` package was released.
+
+Version of package(s) in repository `rcpputils`:
+
+- upstream repository: https://github.com/ros2/rcpputils.git
+- release repository: https://github.com/ros2-gbp/rcpputils-release.git
+- rosdistro version: `2.6.1-2`
+- old version: `2.6.1-2`
+- new version: `2.7.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## rcpputils (humble) - 2.4.1-1
 
 The packages in the `rcpputils` repository were released into the `humble` distro by running `/usr/bin/bloom-release -r humble rcpputils -y` on `Tue, 25 Apr 2023 21:21:16 -0000`
