@@ -2,6 +2,11 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.6.2 (2023-11-17)
+------------------
+* Add in a missing cstdint. (`#182 <https://github.com/ros2/rcpputils/issues/182>`_)
+* Contributors: Chris Lalancette
+
 2.6.1 (2023-02-13)
 ------------------
 * Add missing header for strlen (`#169 <https://github.com/ros2/rcpputils/issues/169>`_)
