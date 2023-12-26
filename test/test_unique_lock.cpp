@@ -1,4 +1,4 @@
-// Copyright 2021 Open Source Robotics Foundation, Inc.
+// Copyright 2023 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,18 +14,13 @@
 
 #include <gtest/gtest.h>
 
-#include <rcpputils/time.hpp>
+#include <rcpputils/unique_lock.hpp>
 
-#include "rcutils/time.h"
+TEST(test_time, test_compile_multiple_mutex_types) {
+  // Very simple check that this compiles with different mutex types
+  std::mutex regular_mutex;
+  rcpputils::unique_lock<std::mutex> lock1(regular_mutex);
 
-TEST(test_time, test_convert_to_nanoseconds) {
-  rcutils_duration_value_t expect_value = RCUTILS_S_TO_NS(5 * 60);  // 5 minutes
-  rcutils_duration_value_t cast_val = 0;
-  EXPECT_NO_THROW(
-    cast_val = rcpputils::convert_to_nanoseconds(std::chrono::duration<double>(5 * 60)).count());
-  EXPECT_EQ(cast_val, expect_value);
-
-  EXPECT_THROW(
-    rcpputils::convert_to_nanoseconds(std::chrono::hours(10000000)),
-    std::invalid_argument);
+  std::recursive_mutex recursive_mutex;
+  rcpputils::unique_lock<std::recursive_mutex> lock2(recursive_mutex);
 }
