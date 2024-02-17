@@ -1,3 +1,26 @@
+## rcpputils (humble) - 2.4.2-1
+
+The packages in the `rcpputils` repository were released into the `humble` distro by running `/usr/bin/bloom-release -y -r humble rcpputils` on `Sat, 17 Feb 2024 02:06:17 -0000`
+
+The `rcpputils` package was released.
+
+Version of package(s) in repository `rcpputils`:
+
+- upstream repository: https://github.com/ros2/rcpputils.git
+- release repository: https://github.com/ros2-gbp/rcpputils-release.git
+- rosdistro version: `2.4.1-1`
+- old version: `2.4.1-1`
+- new version: `2.4.2-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## rcpputils (iron) - 2.6.3-1
 
 The packages in the `rcpputils` repository were released into the `iron` distro by running `/usr/bin/bloom-release --rosdistro iron rcpputils` on `Tue, 13 Feb 2024 13:14:29 -0000`
