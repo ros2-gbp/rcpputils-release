@@ -2,6 +2,9 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.12.0 (2024-04-26)
+-------------------
+
 2.11.0 (2024-04-16)
 -------------------
 * Generate version header with ament_generate_version_header function (`#190 <https://github.com/ros2/rcpputils/issues/190>`_)
