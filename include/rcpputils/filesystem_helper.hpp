@@ -40,7 +40,6 @@
 #define RCPPUTILS__FILESYSTEM_HELPER_HPP_
 
 #include <cstdint>
-#include <ostream>
 #include <string>
 #include <vector>
 

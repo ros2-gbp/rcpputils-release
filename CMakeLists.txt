@@ -11,9 +11,9 @@ if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 11)
 endif()
 # TODO (ahcorde): Remove tl_expected when CXX 20 standard is available
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -71,7 +71,7 @@ if(BUILD_TESTING)
     LANGUAGE c++
   )
   ament_cpplint(EXCLUDE ${_linter_excludes})
-  ament_flake8()
+  ament_flake8(EXCLUDE ${_linter_excludes})
   ament_lint_cmake()
   ament_pep257(EXCLUDE ${_linter_excludes})
   ament_uncrustify(
