@@ -2,20 +2,55 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.6.4 (2024-07-10)
-------------------
-* Generate version header with ament_generate_version_header function (`#192 <https://github.com/ros2/rcpputils/issues/192>`_)
-* Contributors: Sai Kishor Kothakota
+2.13.0 (2024-07-24)
+-------------------
+* Deprecated path class (`#196 <https://github.com/ros2/rcpputils/issues/196>`_)
+* Replace create_temp_directory with the new create_temporary_directory (`#198 <https://github.com/ros2/rcpputils/issues/198>`_)
+  * Replace create_temp_directory with the new create_temporary_directory
+  - The newly added `create_temporary_directory(..)` uses
+  std::filesystem::path and doesn't have platform-specific code.
+  - Also deprecated `create_temp_directory(..)` and `temp_directory_path`
+* Removed deprecated header get_env.hpp (`#195 <https://github.com/ros2/rcpputils/issues/195>`_)
+* Removed rolling mean accumulator deprecated header (`#194 <https://github.com/ros2/rcpputils/issues/194>`_)
+* Removed deprecated clamp methods (`#193 <https://github.com/ros2/rcpputils/issues/193>`_)
+* Contributors: Alejandro Hernández Cordero, Michael Orlov
 
-2.6.3 (2024-02-13)
-------------------
-* Included tl_expected (`#187 <https://github.com/ros2/rcpputils/issues/187>`_)
+2.12.0 (2024-04-26)
+-------------------
+
+2.11.0 (2024-04-16)
+-------------------
+* Generate version header with ament_generate_version_header function (`#190 <https://github.com/ros2/rcpputils/issues/190>`_)
+* Update docs for rcpputils::split functions (`#188 <https://github.com/ros2/rcpputils/issues/188>`_)
+* Contributors: Christophe Bedard, Sai Kishor Kothakota
+
+2.10.0 (2024-02-07)
+-------------------
+* Included tl_expected (`#185 <https://github.com/ros2/rcpputils/issues/185>`_)
 * Contributors: Alejandro Hernández Cordero
 
-2.6.2 (2023-11-17)
+2.9.0 (2023-12-26)
 ------------------
-* Add in a missing cstdint. (`#182 <https://github.com/ros2/rcpputils/issues/182>`_)
+* Switch to using target_link_libraries. (`#183 <https://github.com/ros2/rcpputils/issues/183>`_)
 * Contributors: Chris Lalancette
+
+2.8.1 (2023-11-06)
+------------------
+* Add a missing header due to missing PATH_MAX variable (`#181 <https://github.com/ros2/rcpputils/issues/181>`_)
+* Contributors: wojciechmadry
+
+2.8.0 (2023-09-07)
+------------------
+* Add unique_lock implementation with clang thread safety annotations (`#180 <https://github.com/ros2/rcpputils/issues/180>`_)
+* Contributors: Emerson Knapp
+
+2.7.1 (2023-05-11)
+------------------
+* Add in a missing cstdint. (`#178 <https://github.com/ros2/rcpputils/issues/178>`_)
+* Contributors: Chris Lalancette
+
+2.7.0 (2023-04-27)
+------------------
 
 2.6.1 (2023-02-13)
 ------------------

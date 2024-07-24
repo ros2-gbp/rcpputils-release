@@ -1,4 +1,4 @@
-// Copyright 2020 PAL Robotics S.L.
+// Copyright 2023 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,21 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
-#define RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
+#include <gtest/gtest.h>
 
-#include "rcpputils/rolling_mean_accumulator.hpp"
+#include <rcpputils/unique_lock.hpp>
 
-#warning \
-  "the rcppmath namespace is deprecated, include rcpputils/rolling_mean_accumulator.hpp instead"
+TEST(test_time, test_compile_multiple_mutex_types) {
+  // Very simple check that this compiles with different mutex types
+  std::mutex regular_mutex;
+  rcpputils::unique_lock<std::mutex> lock1(regular_mutex);
 
-namespace rcppmath
-{
-
-template<typename T>
-using RollingMeanAccumulator [[deprecated("use rcpputils::RollingMeanAccumulator instead")]] =
-  rcpputils::RollingMeanAccumulator<T>;
-
-}  // namespace rcppmath
-
-#endif  // RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
+  std::recursive_mutex recursive_mutex;
+  rcpputils::unique_lock<std::recursive_mutex> lock2(recursive_mutex);
+}
