@@ -123,6 +123,12 @@ if(BUILD_TESTING)
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
   target_link_libraries(test_filesystem_helper ${PROJECT_NAME})
 
+  ament_add_gtest(test_filesystem_helper_std test/test_filesystem_helper_std.cpp
+    ENV
+      EXPECTED_WORKING_DIRECTORY=$<SHELL_PATH:${CMAKE_CURRENT_BINARY_DIR}>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  target_link_libraries(test_filesystem_helper_std ${PROJECT_NAME})
+
   ament_add_gtest(test_find_and_replace test/test_find_and_replace.cpp)
   target_link_libraries(test_find_and_replace ${PROJECT_NAME})
 
@@ -159,9 +165,6 @@ if(BUILD_TESTING)
   set_tests_properties(test_find_library PROPERTIES
     ENVIRONMENT
       "_TEST_LIBRARY_DIR=$<TARGET_FILE_DIR:test_library>;_TEST_LIBRARY=$<TARGET_FILE:test_library>")
-
-  ament_add_gtest(test_clamp test/test_clamp.cpp)
-  target_link_libraries(test_clamp ${PROJECT_NAME})
 
   ament_add_gtest(test_accumulator test/test_accumulator.cpp)
   target_link_libraries(test_accumulator ${PROJECT_NAME})
