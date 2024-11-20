@@ -2,6 +2,11 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.13.2 (2024-11-20)
+-------------------
+* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_)
+* Contributors: Tomoya Fujita
+
 2.13.1 (2024-07-29)
 -------------------
 * Suppress clang error because of deprecation (`#199 <https://github.com/ros2/rcpputils/issues/199>`_)
