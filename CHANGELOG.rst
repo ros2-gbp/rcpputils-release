@@ -2,26 +2,77 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.4.4 (2024-11-25)
-------------------
-* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_) (`#202 <https://github.com/ros2/rcpputils/issues/202>`_)
+2.11.1 (2024-12-18)
+-------------------
+* Remove CODEOWNERS and mirror-rolling-to-master workflow. (`#204 <https://github.com/ros2/rcpputils/issues/204>`_) (`#205 <https://github.com/ros2/rcpputils/issues/205>`_)
+  They are both out-of-date and no longer serving their
+  intended purpose.
+  (cherry picked from commit d1abed6f53a443849cd45cd22c4255e630a8b5b9)
+  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
+* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_) (`#203 <https://github.com/ros2/rcpputils/issues/203>`_)
+  * fix memory leak for remove_all().
+  (cherry picked from commit ac4ee13bd59f552a823d78590279ee49443c7c2b)
+  Co-authored-by: Tomoya Fujita <Tomoya.Fujita@sony.com>
 * Contributors: mergify[bot]
 
-2.4.3 (2024-05-15)
-------------------
-* Generate version header with ament_generate_version_header function (`#190 <https://github.com/ros2/rcpputils/issues/190>`_) (`#191 <https://github.com/ros2/rcpputils/issues/191>`_)
-* Contributors: mergify[bot]
+2.11.0 (2024-04-16)
+-------------------
+* Generate version header with ament_generate_version_header function (`#190 <https://github.com/ros2/rcpputils/issues/190>`_)
+* Update docs for rcpputils::split functions (`#188 <https://github.com/ros2/rcpputils/issues/188>`_)
+* Contributors: Christophe Bedard, Sai Kishor Kothakota
 
-2.4.2 (2024-02-16)
-------------------
-* Included tl_expected (backport `#185 <https://github.com/ros2/rcpputils/issues/185>`_) (`#186 <https://github.com/ros2/rcpputils/issues/186>`_)
-* humble: fix <cstdint> error (`#184 <https://github.com/ros2/rcpputils/issues/184>`_)
-* Contributors: Bernd Müller, mergify[bot]
+2.10.0 (2024-02-07)
+-------------------
+* Included tl_expected (`#185 <https://github.com/ros2/rcpputils/issues/185>`_)
+* Contributors: Alejandro Hernández Cordero
 
-2.4.1 (2023-04-25)
+2.9.0 (2023-12-26)
 ------------------
-* Fix possible race condition in create_directories() (`#162 <https://github.com/ros2/rcpputils/issues/162>`_) (`#176 <https://github.com/ros2/rcpputils/issues/176>`_)
-* Contributors: mergify[bot]
+* Switch to using target_link_libraries. (`#183 <https://github.com/ros2/rcpputils/issues/183>`_)
+* Contributors: Chris Lalancette
+
+2.8.1 (2023-11-06)
+------------------
+* Add a missing header due to missing PATH_MAX variable (`#181 <https://github.com/ros2/rcpputils/issues/181>`_)
+* Contributors: wojciechmadry
+
+2.8.0 (2023-09-07)
+------------------
+* Add unique_lock implementation with clang thread safety annotations (`#180 <https://github.com/ros2/rcpputils/issues/180>`_)
+* Contributors: Emerson Knapp
+
+2.7.1 (2023-05-11)
+------------------
+* Add in a missing cstdint. (`#178 <https://github.com/ros2/rcpputils/issues/178>`_)
+* Contributors: Chris Lalancette
+
+2.7.0 (2023-04-27)
+------------------
+
+2.6.1 (2023-02-13)
+------------------
+* Add missing header for strlen (`#169 <https://github.com/ros2/rcpputils/issues/169>`_)
+* issue-167 (`#172 <https://github.com/ros2/rcpputils/issues/172>`_)
+* [rolling] Update maintainers - 2022-11-07 (`#166 <https://github.com/ros2/rcpputils/issues/166>`_)
+* Contributors: Audrow Nash, Sebastian Freitag, bijoua29
+
+2.6.0 (2022-11-02)
+------------------
+* require C++17 and deprecate the rcppmath namespace (`#165 <https://github.com/ros2/rcpputils/issues/165>`_)
+* Contributors: William Woodall
+
+2.5.2 (2022-09-13)
+------------------
+* Mirror rolling to master
+* Contributors: Audrow Nash
+
+2.5.1 (2022-05-04)
+------------------
+
+2.5.0 (2022-04-29)
+------------------
+* Fix possible race condition in create_directories() (`#162 <https://github.com/ros2/rcpputils/issues/162>`_)
+* Contributors: Artem Shumov
 
 2.4.0 (2022-03-01)
 ------------------
