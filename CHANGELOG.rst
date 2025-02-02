@@ -2,18 +2,37 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.11.1 (2024-12-18)
+2.13.3 (2025-02-02)
 -------------------
-* Remove CODEOWNERS and mirror-rolling-to-master workflow. (`#204 <https://github.com/ros2/rcpputils/issues/204>`_) (`#205 <https://github.com/ros2/rcpputils/issues/205>`_)
-  They are both out-of-date and no longer serving their
-  intended purpose.
-  (cherry picked from commit d1abed6f53a443849cd45cd22c4255e630a8b5b9)
-  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
-* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_) (`#203 <https://github.com/ros2/rcpputils/issues/203>`_)
-  * fix memory leak for remove_all().
-  (cherry picked from commit ac4ee13bd59f552a823d78590279ee49443c7c2b)
-  Co-authored-by: Tomoya Fujita <Tomoya.Fujita@sony.com>
-* Contributors: mergify[bot]
+* Clear the rcutils error when throwing an exception. (`#206 <https://github.com/ros2/rcpputils/issues/206>`_)
+* Remove CODEOWNERS and mirror-rolling-to-master workflow. (`#204 <https://github.com/ros2/rcpputils/issues/204>`_)
+* Contributors: Chris Lalancette
+
+2.13.2 (2024-11-20)
+-------------------
+* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_)
+* Contributors: Tomoya Fujita
+
+2.13.1 (2024-07-29)
+-------------------
+* Suppress clang error because of deprecation (`#199 <https://github.com/ros2/rcpputils/issues/199>`_)
+* Contributors: Alejandro Hernández Cordero
+
+2.13.0 (2024-07-24)
+-------------------
+* Deprecated path class (`#196 <https://github.com/ros2/rcpputils/issues/196>`_)
+* Replace create_temp_directory with the new create_temporary_directory (`#198 <https://github.com/ros2/rcpputils/issues/198>`_)
+  * Replace create_temp_directory with the new create_temporary_directory
+  - The newly added `create_temporary_directory(..)` uses
+  std::filesystem::path and doesn't have platform-specific code.
+  - Also deprecated `create_temp_directory(..)` and `temp_directory_path`
+* Removed deprecated header get_env.hpp (`#195 <https://github.com/ros2/rcpputils/issues/195>`_)
+* Removed rolling mean accumulator deprecated header (`#194 <https://github.com/ros2/rcpputils/issues/194>`_)
+* Removed deprecated clamp methods (`#193 <https://github.com/ros2/rcpputils/issues/193>`_)
+* Contributors: Alejandro Hernández Cordero, Michael Orlov
+
+2.12.0 (2024-04-26)
+-------------------
 
 2.11.0 (2024-04-16)
 -------------------
