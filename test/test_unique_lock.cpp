@@ -1,4 +1,4 @@
-// Copyright 2020 Open Source Robotics Foundation, Inc.
+// Copyright 2023 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
-#define DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
+#include <gtest/gtest.h>
 
-#if _WIN32
-#ifdef DUMMY_SHARED_LIBRARY_BUILDING_DLL
-#define DUMMY_SHARED_LIBRARY_PUBLIC __declspec(dllexport)
-#else
-#define DUMMY_SHARED_LIBRARY_PUBLIC __declspec(dllimport)
-#endif
-#else
-#define DUMMY_SHARED_LIBRARY_PUBLIC
-#endif
+#include <rcpputils/unique_lock.hpp>
 
-#include <stdio.h>
+TEST(test_time, test_compile_multiple_mutex_types) {
+  // Very simple check that this compiles with different mutex types
+  std::mutex regular_mutex;
+  rcpputils::unique_lock<std::mutex> lock1(regular_mutex);
 
-DUMMY_SHARED_LIBRARY_PUBLIC
-void print_name(void);
-
-#endif  // DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
+  std::recursive_mutex recursive_mutex;
+  rcpputils::unique_lock<std::recursive_mutex> lock2(recursive_mutex);
+}

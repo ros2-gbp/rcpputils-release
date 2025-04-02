@@ -11,9 +11,9 @@ if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 11)
 endif()
 # TODO (ahcorde): Remove tl_expected when CXX 20 standard is available
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -26,9 +26,10 @@ endif()
 
 add_library(${PROJECT_NAME}
   src/asserts.cpp
+  src/env.cpp
   src/filesystem_helper.cpp
   src/find_library.cpp
-  src/env.cpp
+  src/process.cpp
   src/shared_library.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -37,7 +38,7 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "RCPPUTILS_BUILDING_LIBRARY")
 endif()
-ament_target_dependencies(${PROJECT_NAME} rcutils)
+target_link_libraries(${PROJECT_NAME} PUBLIC rcutils::rcutils)
 
 # Export old-style CMake variables
 ament_export_include_directories("include/${PROJECT_NAME}")
@@ -71,7 +72,7 @@ if(BUILD_TESTING)
     LANGUAGE c++
   )
   ament_cpplint(EXCLUDE ${_linter_excludes})
-  ament_flake8()
+  ament_flake8(EXCLUDE ${_linter_excludes})
   ament_lint_cmake()
   ament_pep257(EXCLUDE ${_linter_excludes})
   ament_uncrustify(
@@ -101,15 +102,13 @@ if(BUILD_TESTING)
   target_link_libraries(test_join ${PROJECT_NAME})
 
   ament_add_gtest(test_time test/test_time.cpp)
-  target_link_libraries(test_time ${PROJECT_NAME})
-  ament_target_dependencies(test_time rcutils)
+  target_link_libraries(test_time ${PROJECT_NAME} rcutils::rcutils)
 
   ament_add_gtest(test_env test/test_env.cpp
     ENV
       EMPTY_TEST=
       NORMAL_TEST=foo
   )
-  ament_target_dependencies(test_env rcutils)
   target_link_libraries(test_env ${PROJECT_NAME})
 
   ament_add_gtest(test_scope_exit test/test_scope_exit.cpp)
@@ -122,7 +121,6 @@ if(BUILD_TESTING)
     ENV
       EXPECTED_WORKING_DIRECTORY=$<SHELL_PATH:${CMAKE_CURRENT_BINARY_DIR}>
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-  ament_target_dependencies(test_filesystem_helper rcutils)
   target_link_libraries(test_filesystem_helper ${PROJECT_NAME})
 
   ament_add_gtest(test_find_and_replace test/test_find_and_replace.cpp)
@@ -133,7 +131,6 @@ if(BUILD_TESTING)
 
   ament_add_gtest(test_process test/test_process.cpp)
   target_link_libraries(test_process ${PROJECT_NAME})
-  ament_target_dependencies(test_process rcutils)
 
   set(append_library_dirs "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
 
@@ -156,8 +153,9 @@ if(BUILD_TESTING)
 
   add_library(test_library SHARED test/test_library.cpp)
   target_link_libraries(test_library PUBLIC ${PROJECT_NAME})
+
   ament_add_gtest(test_find_library test/test_find_library.cpp)
-  target_link_libraries(test_find_library test_library)
+  target_link_libraries(test_find_library test_library rcutils::rcutils)
   set_tests_properties(test_find_library PROPERTIES
     ENVIRONMENT
       "_TEST_LIBRARY_DIR=$<TARGET_FILE_DIR:test_library>;_TEST_LIBRARY=$<TARGET_FILE:test_library>")
@@ -167,6 +165,9 @@ if(BUILD_TESTING)
 
   ament_add_gtest(test_accumulator test/test_accumulator.cpp)
   target_link_libraries(test_accumulator ${PROJECT_NAME})
+
+  ament_add_gtest(test_unique_lock test/test_unique_lock.cpp)
+  target_link_libraries(test_unique_lock ${PROJECT_NAME})
 endif()
 
 ament_package()
