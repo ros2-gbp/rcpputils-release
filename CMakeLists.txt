@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(rcpputils)
 
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 find_package(rcutils REQUIRED)
 
 # Default to C11
@@ -153,6 +153,15 @@ if(BUILD_TESTING)
     endif()
     target_link_libraries(test_shared_library ${PROJECT_NAME})
   endif()
+
+  add_library(dummy_compile_test test/test_compile_warnings.cpp)
+  if(NOT WIN32)
+    target_compile_options(dummy_compile_test PRIVATE "-Werror")
+  else()
+    target_compile_options(dummy_compile_test PRIVATE "/WX")
+  endif()
+
+  target_link_libraries(dummy_compile_test ${PROJECT_NAME})
 
   ament_add_gtest(test_endian test/test_endian.cpp)
   target_link_libraries(test_endian ${PROJECT_NAME})
