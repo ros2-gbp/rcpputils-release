@@ -2,6 +2,11 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.14.2 (2025-07-01)
+-------------------
+* fix cmake deprecation (`#214 <https://github.com/ros2/rcpputils/issues/214>`_)
+* Contributors: mosfet80
+
 2.14.1 (2025-06-19)
 -------------------
 * add thread naming utilities (`#213 <https://github.com/ros2/rcpputils/issues/213>`_)
