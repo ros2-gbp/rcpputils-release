@@ -17,7 +17,6 @@
 #include <cassert>
 #include <cstddef>
 
-#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -72,8 +71,8 @@ std::string find_library_path(const std::string & library_name)
 
 std::string path_for_library(const std::string & directory, const std::string & library_name)
 {
-  auto path = std::filesystem::path(directory) / filename_for_library(library_name);
-  if (std::filesystem::is_regular_file(path)) {
+  auto path = rcpputils::fs::path(directory) / filename_for_library(library_name);
+  if (path.is_regular_file()) {
     return path.string();
   }
   return "";
