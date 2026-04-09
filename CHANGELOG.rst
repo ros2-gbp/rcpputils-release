@@ -2,33 +2,72 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.11.3 (2025-09-17)
+2.14.4 (2026-04-09)
 -------------------
-* Remove unnecessary dependencies from rcpputils. (`#216 <https://github.com/ros2/rcpputils/issues/216>`_) (`#218 <https://github.com/ros2/rcpputils/issues/218>`_)
+* Increase test coverage (`#222 <https://github.com/ros2/rcpputils/issues/222>`_)
+* Append copies of BSD and CC0 licenses from the works (`#223 <https://github.com/ros2/rcpputils/issues/223>`_)
+* Use std::filesystem in find_library and add more test (`#221 <https://github.com/ros2/rcpputils/issues/221>`_)
+* Remove -Werror from Clang compile options (`#220 <https://github.com/ros2/rcpputils/issues/220>`_)
+* Contributors: Alejandro Hernández Cordero, Tully Foote, William Woodall
+
+2.14.3 (2025-09-17)
+-------------------
+* Remove unnecessary dependencies from rcpputils. (`#216 <https://github.com/ros2/rcpputils/issues/216>`_)
   It doesn't need to have dependencies on python tests.
-  (cherry picked from commit 0e78962a52e0d09d7b1214e5e055fe23883e7b72)
-  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
-* Contributors: mergify[bot]
+* Contributors: Chris Lalancette
 
-2.11.2 (2025-04-02)
+2.14.2 (2025-07-01)
 -------------------
-* Added missing include (`#207 <https://github.com/ros2/rcpputils/issues/207>`_) (`#208 <https://github.com/ros2/rcpputils/issues/208>`_)
-  (cherry picked from commit c0295f312a245b3e69a75f667ba7addeaa58cec0)
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Contributors: mergify[bot]
+* fix cmake deprecation (`#214 <https://github.com/ros2/rcpputils/issues/214>`_)
+* Contributors: mosfet80
 
-2.11.1 (2024-12-18)
+2.14.1 (2025-06-19)
 -------------------
-* Remove CODEOWNERS and mirror-rolling-to-master workflow. (`#204 <https://github.com/ros2/rcpputils/issues/204>`_) (`#205 <https://github.com/ros2/rcpputils/issues/205>`_)
-  They are both out-of-date and no longer serving their
-  intended purpose.
-  (cherry picked from commit d1abed6f53a443849cd45cd22c4255e630a8b5b9)
-  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
-* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_) (`#203 <https://github.com/ros2/rcpputils/issues/203>`_)
-  * fix memory leak for remove_all().
-  (cherry picked from commit ac4ee13bd59f552a823d78590279ee49443c7c2b)
-  Co-authored-by: Tomoya Fujita <Tomoya.Fujita@sony.com>
-* Contributors: mergify[bot]
+* add thread naming utilities (`#213 <https://github.com/ros2/rcpputils/issues/213>`_)
+* Removed deprecated path (`#212 <https://github.com/ros2/rcpputils/issues/212>`_)
+* Contributors: Adam Aposhian, Alejandro Hernández Cordero
+
+2.14.0 (2025-04-24)
+-------------------
+
+2.13.4 (2025-04-18)
+-------------------
+* Switch to ament_cmake_ros_core package (`#211 <https://github.com/ros2/rcpputils/issues/211>`_)
+* Added marco to disable deprecation warnings (`#210 <https://github.com/ros2/rcpputils/issues/210>`_)
+* Added missing include (`#207 <https://github.com/ros2/rcpputils/issues/207>`_)
+* Contributors: Alejandro Hernández Cordero, Janosch Machowinski, Michael Carroll
+
+2.13.3 (2025-02-02)
+-------------------
+* Clear the rcutils error when throwing an exception. (`#206 <https://github.com/ros2/rcpputils/issues/206>`_)
+* Remove CODEOWNERS and mirror-rolling-to-master workflow. (`#204 <https://github.com/ros2/rcpputils/issues/204>`_)
+* Contributors: Chris Lalancette
+
+2.13.2 (2024-11-20)
+-------------------
+* fix memory leak for remove_all(). (`#201 <https://github.com/ros2/rcpputils/issues/201>`_)
+* Contributors: Tomoya Fujita
+
+2.13.1 (2024-07-29)
+-------------------
+* Suppress clang error because of deprecation (`#199 <https://github.com/ros2/rcpputils/issues/199>`_)
+* Contributors: Alejandro Hernández Cordero
+
+2.13.0 (2024-07-24)
+-------------------
+* Deprecated path class (`#196 <https://github.com/ros2/rcpputils/issues/196>`_)
+* Replace create_temp_directory with the new create_temporary_directory (`#198 <https://github.com/ros2/rcpputils/issues/198>`_)
+  * Replace create_temp_directory with the new create_temporary_directory
+  - The newly added `create_temporary_directory(..)` uses
+  std::filesystem::path and doesn't have platform-specific code.
+  - Also deprecated `create_temp_directory(..)` and `temp_directory_path`
+* Removed deprecated header get_env.hpp (`#195 <https://github.com/ros2/rcpputils/issues/195>`_)
+* Removed rolling mean accumulator deprecated header (`#194 <https://github.com/ros2/rcpputils/issues/194>`_)
+* Removed deprecated clamp methods (`#193 <https://github.com/ros2/rcpputils/issues/193>`_)
+* Contributors: Alejandro Hernández Cordero, Michael Orlov
+
+2.12.0 (2024-04-26)
+-------------------
 
 2.11.0 (2024-04-16)
 -------------------

@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 
 project(rcpputils)
 
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 find_package(rcutils REQUIRED)
 
 # Default to C11
@@ -30,7 +30,8 @@ add_library(${PROJECT_NAME}
   src/filesystem_helper.cpp
   src/find_library.cpp
   src/process.cpp
-  src/shared_library.cpp)
+  src/shared_library.cpp
+  src/thread_name.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
@@ -77,7 +78,7 @@ if(BUILD_TESTING)
   ament_xmllint()
 
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-Wthread-safety -Werror)
+    add_compile_options(-Wthread-safety)
   endif()
 
   ament_add_gtest(test_asserts_ndebug test/test_asserts.cpp)
@@ -89,6 +90,9 @@ if(BUILD_TESTING)
 
   ament_add_gtest(test_asserts_debug test/test_asserts.cpp)
   target_link_libraries(test_asserts_debug ${PROJECT_NAME})
+
+  ament_add_gtest(test_thread_name test/test_thread_name.cpp)
+  target_link_libraries(test_thread_name ${PROJECT_NAME})
 
   ament_add_gtest(test_thread_safety_annotations test/test_thread_safety_annotations.cpp)
   target_link_libraries(test_thread_safety_annotations ${PROJECT_NAME})
@@ -118,6 +122,12 @@ if(BUILD_TESTING)
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
   target_link_libraries(test_filesystem_helper ${PROJECT_NAME})
 
+  ament_add_gtest(test_filesystem_helper_std test/test_filesystem_helper_std.cpp
+    ENV
+      EXPECTED_WORKING_DIRECTORY=$<SHELL_PATH:${CMAKE_CURRENT_BINARY_DIR}>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  target_link_libraries(test_filesystem_helper_std ${PROJECT_NAME})
+
   ament_add_gtest(test_find_and_replace test/test_find_and_replace.cpp)
   target_link_libraries(test_find_and_replace ${PROJECT_NAME})
 
@@ -143,6 +153,15 @@ if(BUILD_TESTING)
     target_link_libraries(test_shared_library ${PROJECT_NAME})
   endif()
 
+  add_library(dummy_compile_test test/test_compile_warnings.cpp)
+  if(NOT WIN32)
+    target_compile_options(dummy_compile_test PRIVATE "-Werror")
+  else()
+    target_compile_options(dummy_compile_test PRIVATE "/WX")
+  endif()
+
+  target_link_libraries(dummy_compile_test ${PROJECT_NAME})
+
   ament_add_gtest(test_endian test/test_endian.cpp)
   target_link_libraries(test_endian ${PROJECT_NAME})
 
@@ -154,9 +173,6 @@ if(BUILD_TESTING)
   set_tests_properties(test_find_library PROPERTIES
     ENVIRONMENT
       "_TEST_LIBRARY_DIR=$<TARGET_FILE_DIR:test_library>;_TEST_LIBRARY=$<TARGET_FILE:test_library>")
-
-  ament_add_gtest(test_clamp test/test_clamp.cpp)
-  target_link_libraries(test_clamp ${PROJECT_NAME})
 
   ament_add_gtest(test_accumulator test/test_accumulator.cpp)
   target_link_libraries(test_accumulator ${PROJECT_NAME})
