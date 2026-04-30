@@ -1,0 +1,12 @@
+Source: ros-lyrical-rcpputils
+Section: misc
+Priority: optional
+Maintainer: Brandon Ong <brandon@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-ament-cmake-copyright <!nocheck>, ros-lyrical-ament-cmake-cppcheck <!nocheck>, ros-lyrical-ament-cmake-cpplint <!nocheck>, ros-lyrical-ament-cmake-gen-version-h, ros-lyrical-ament-cmake-gtest <!nocheck>, ros-lyrical-ament-cmake-lint-cmake <!nocheck>, ros-lyrical-ament-cmake-ros-core, ros-lyrical-ament-cmake-uncrustify <!nocheck>, ros-lyrical-ament-cmake-xmllint <!nocheck>, ros-lyrical-rcutils, ros-lyrical-ros-workspace
+Homepage: https://index.ros.org/p/rcpputils/#lyrical
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-rcpputils
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lyrical-rcutils, ros-lyrical-ros-workspace
+Description: Package containing utility code for C++.
