@@ -1,3 +1,26 @@
+## rcpputils (jazzy) - 2.11.4-1
+
+The packages in the `rcpputils` repository were released into the `jazzy` distro by running `/usr/bin/bloom-release --track jazzy --rosdistro jazzy rcpputils` on `Tue, 02 Jun 2026 07:08:03 -0000`
+
+The `rcpputils` package was released.
+
+Version of package(s) in repository `rcpputils`:
+
+- upstream repository: https://github.com/ros2/rcpputils.git
+- release repository: https://github.com/ros2-gbp/rcpputils-release.git
+- rosdistro version: `2.11.3-1`
+- old version: `2.11.3-1`
+- new version: `2.11.4-1`
+
+Versions of tools used:
+
+- bloom version: `0.13.0`
+- catkin_pkg version: `1.1.0`
+- rosdep version: `0.26.0`
+- rosdistro version: `1.0.1`
+- vcstools version: `0.1.42`
+
+
 ## rcpputils (rolling) - 2.15.0-1
 
 The packages in the `rcpputils` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --track rolling --rosdistro rolling rcpputils` on `Wed, 06 May 2026 18:36:15 -0000`
