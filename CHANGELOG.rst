@@ -2,46 +2,16 @@
 Changelog for package rcpputils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.15.1 (2026-07-02)
+2.13.6 (2026-07-02)
 -------------------
-* Deprecate rcpputils::endian (`#227 <https://github.com/ros2/rcpputils/issues/227>`_)
-* Contributors: Maurice Alexander Purnawan
+* Append copies of BSD and CC0 licenses from the works (`#223 <https://github.com/ros2/rcpputils/issues/223>`_) (`#224 <https://github.com/ros2/rcpputils/issues/224>`_)
+* Contributors: mergify[bot]
 
-2.15.0 (2026-05-06)
+2.13.5 (2025-09-17)
 -------------------
-
-2.14.5 (2026-04-30)
--------------------
-* Updated note related with tl_expected (`#229 <https://github.com/ros2/rcpputils/issues/229>`_)
-* Contributors: Alejandro Hernández Cordero
-
-2.14.4 (2026-04-09)
--------------------
-* Increase test coverage (`#222 <https://github.com/ros2/rcpputils/issues/222>`_)
-* Append copies of BSD and CC0 licenses from the works (`#223 <https://github.com/ros2/rcpputils/issues/223>`_)
-* Use std::filesystem in find_library and add more test (`#221 <https://github.com/ros2/rcpputils/issues/221>`_)
-* Remove -Werror from Clang compile options (`#220 <https://github.com/ros2/rcpputils/issues/220>`_)
-* Contributors: Alejandro Hernández Cordero, Tully Foote, William Woodall
-
-2.14.3 (2025-09-17)
--------------------
-* Remove unnecessary dependencies from rcpputils. (`#216 <https://github.com/ros2/rcpputils/issues/216>`_)
-  It doesn't need to have dependencies on python tests.
-* Contributors: Chris Lalancette
-
-2.14.2 (2025-07-01)
--------------------
-* fix cmake deprecation (`#214 <https://github.com/ros2/rcpputils/issues/214>`_)
-* Contributors: mosfet80
-
-2.14.1 (2025-06-19)
--------------------
-* add thread naming utilities (`#213 <https://github.com/ros2/rcpputils/issues/213>`_)
-* Removed deprecated path (`#212 <https://github.com/ros2/rcpputils/issues/212>`_)
-* Contributors: Adam Aposhian, Alejandro Hernández Cordero
-
-2.14.0 (2025-04-24)
--------------------
+* Remove unnecessary dependencies from rcpputils. (`#216 <https://github.com/ros2/rcpputils/issues/216>`_) (`#217 <https://github.com/ros2/rcpputils/issues/217>`_)
+* fix cmake deprecation (`#214 <https://github.com/ros2/rcpputils/issues/214>`_) (`#215 <https://github.com/ros2/rcpputils/issues/215>`_)
+* Contributors: mergify[bot]
 
 2.13.4 (2025-04-18)
 -------------------

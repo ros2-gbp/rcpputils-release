@@ -6,8 +6,16 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros_core REQUIRED)
 find_package(rcutils REQUIRED)
 
-# Note: std::expected is C++23, not C++20. Keep the vendored tl_expected
-# until this package can be bumped to CMAKE_CXX_STANDARD 23.
+# Default to C11
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 11)
+endif()
+# TODO (ahcorde): Remove tl_expected when CXX 20 standard is available
+# Default to C++17
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # enables building a static library but later link it into a dynamic library
   add_compile_options(-fPIC)
@@ -22,8 +30,7 @@ add_library(${PROJECT_NAME}
   src/filesystem_helper.cpp
   src/find_library.cpp
   src/process.cpp
-  src/shared_library.cpp
-  src/thread_name.cpp)
+  src/shared_library.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
@@ -31,7 +38,7 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "RCPPUTILS_BUILDING_LIBRARY")
 endif()
-target_link_libraries(${PROJECT_NAME} PUBLIC rcutils::rcutils ament_cmake_ros_core::ament_ros_defaults)
+target_link_libraries(${PROJECT_NAME} PUBLIC rcutils::rcutils)
 
 # Export old-style CMake variables
 ament_export_include_directories("include/${PROJECT_NAME}")
@@ -70,7 +77,7 @@ if(BUILD_TESTING)
   ament_xmllint()
 
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-Wthread-safety)
+    add_compile_options(-Wthread-safety -Werror)
   endif()
 
   ament_add_gtest(test_asserts_ndebug test/test_asserts.cpp)
@@ -82,9 +89,6 @@ if(BUILD_TESTING)
 
   ament_add_gtest(test_asserts_debug test/test_asserts.cpp)
   target_link_libraries(test_asserts_debug ${PROJECT_NAME})
-
-  ament_add_gtest(test_thread_name test/test_thread_name.cpp)
-  target_link_libraries(test_thread_name ${PROJECT_NAME})
 
   ament_add_gtest(test_thread_safety_annotations test/test_thread_safety_annotations.cpp)
   target_link_libraries(test_thread_safety_annotations ${PROJECT_NAME})
@@ -153,6 +157,9 @@ if(BUILD_TESTING)
   endif()
 
   target_link_libraries(dummy_compile_test ${PROJECT_NAME})
+
+  ament_add_gtest(test_endian test/test_endian.cpp)
+  target_link_libraries(test_endian ${PROJECT_NAME})
 
   add_library(test_library SHARED test/test_library.cpp)
   target_link_libraries(test_library PUBLIC ${PROJECT_NAME})
