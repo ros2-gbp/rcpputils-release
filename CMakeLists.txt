@@ -1,21 +1,13 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 
 project(rcpputils)
 
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 find_package(rcutils REQUIRED)
 
-# Default to C11
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 11)
-endif()
-# TODO (ahcorde): Remove tl_expected when CXX 20 standard is available
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
-
+# Note: std::expected is C++23, not C++20. Keep the vendored tl_expected
+# until this package can be bumped to CMAKE_CXX_STANDARD 23.
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # enables building a static library but later link it into a dynamic library
   add_compile_options(-fPIC)
@@ -26,10 +18,12 @@ endif()
 
 add_library(${PROJECT_NAME}
   src/asserts.cpp
+  src/env.cpp
   src/filesystem_helper.cpp
   src/find_library.cpp
-  src/env.cpp
-  src/shared_library.cpp)
+  src/process.cpp
+  src/shared_library.cpp
+  src/thread_name.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
@@ -37,7 +31,7 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "RCPPUTILS_BUILDING_LIBRARY")
 endif()
-ament_target_dependencies(${PROJECT_NAME} rcutils)
+target_link_libraries(${PROJECT_NAME} PUBLIC rcutils::rcutils ament_cmake_ros_core::ament_ros_defaults)
 
 # Export old-style CMake variables
 ament_export_include_directories("include/${PROJECT_NAME}")
@@ -76,7 +70,7 @@ if(BUILD_TESTING)
   ament_xmllint()
 
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-Wthread-safety -Werror)
+    add_compile_options(-Wthread-safety)
   endif()
 
   ament_add_gtest(test_asserts_ndebug test/test_asserts.cpp)
@@ -89,6 +83,9 @@ if(BUILD_TESTING)
   ament_add_gtest(test_asserts_debug test/test_asserts.cpp)
   target_link_libraries(test_asserts_debug ${PROJECT_NAME})
 
+  ament_add_gtest(test_thread_name test/test_thread_name.cpp)
+  target_link_libraries(test_thread_name ${PROJECT_NAME})
+
   ament_add_gtest(test_thread_safety_annotations test/test_thread_safety_annotations.cpp)
   target_link_libraries(test_thread_safety_annotations ${PROJECT_NAME})
 
@@ -96,15 +93,13 @@ if(BUILD_TESTING)
   target_link_libraries(test_join ${PROJECT_NAME})
 
   ament_add_gtest(test_time test/test_time.cpp)
-  target_link_libraries(test_time ${PROJECT_NAME})
-  ament_target_dependencies(test_time rcutils)
+  target_link_libraries(test_time ${PROJECT_NAME} rcutils::rcutils)
 
   ament_add_gtest(test_env test/test_env.cpp
     ENV
       EMPTY_TEST=
       NORMAL_TEST=foo
   )
-  ament_target_dependencies(test_env rcutils)
   target_link_libraries(test_env ${PROJECT_NAME})
 
   ament_add_gtest(test_scope_exit test/test_scope_exit.cpp)
@@ -117,8 +112,13 @@ if(BUILD_TESTING)
     ENV
       EXPECTED_WORKING_DIRECTORY=$<SHELL_PATH:${CMAKE_CURRENT_BINARY_DIR}>
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-  ament_target_dependencies(test_filesystem_helper rcutils)
   target_link_libraries(test_filesystem_helper ${PROJECT_NAME})
+
+  ament_add_gtest(test_filesystem_helper_std test/test_filesystem_helper_std.cpp
+    ENV
+      EXPECTED_WORKING_DIRECTORY=$<SHELL_PATH:${CMAKE_CURRENT_BINARY_DIR}>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  target_link_libraries(test_filesystem_helper_std ${PROJECT_NAME})
 
   ament_add_gtest(test_find_and_replace test/test_find_and_replace.cpp)
   target_link_libraries(test_find_and_replace ${PROJECT_NAME})
@@ -128,7 +128,6 @@ if(BUILD_TESTING)
 
   ament_add_gtest(test_process test/test_process.cpp)
   target_link_libraries(test_process ${PROJECT_NAME})
-  ament_target_dependencies(test_process rcutils)
 
   set(append_library_dirs "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
 
@@ -146,22 +145,29 @@ if(BUILD_TESTING)
     target_link_libraries(test_shared_library ${PROJECT_NAME})
   endif()
 
-  ament_add_gtest(test_endian test/test_endian.cpp)
-  target_link_libraries(test_endian ${PROJECT_NAME})
+  add_library(dummy_compile_test test/test_compile_warnings.cpp)
+  if(NOT WIN32)
+    target_compile_options(dummy_compile_test PRIVATE "-Werror")
+  else()
+    target_compile_options(dummy_compile_test PRIVATE "/WX")
+  endif()
+
+  target_link_libraries(dummy_compile_test ${PROJECT_NAME})
 
   add_library(test_library SHARED test/test_library.cpp)
   target_link_libraries(test_library PUBLIC ${PROJECT_NAME})
+
   ament_add_gtest(test_find_library test/test_find_library.cpp)
-  target_link_libraries(test_find_library test_library)
+  target_link_libraries(test_find_library test_library rcutils::rcutils)
   set_tests_properties(test_find_library PROPERTIES
     ENVIRONMENT
       "_TEST_LIBRARY_DIR=$<TARGET_FILE_DIR:test_library>;_TEST_LIBRARY=$<TARGET_FILE:test_library>")
 
-  ament_add_gtest(test_clamp test/test_clamp.cpp)
-  target_link_libraries(test_clamp ${PROJECT_NAME})
-
   ament_add_gtest(test_accumulator test/test_accumulator.cpp)
   target_link_libraries(test_accumulator ${PROJECT_NAME})
+
+  ament_add_gtest(test_unique_lock test/test_unique_lock.cpp)
+  target_link_libraries(test_unique_lock ${PROJECT_NAME})
 endif()
 
 ament_package()

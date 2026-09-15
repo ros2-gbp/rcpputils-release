@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "rcpputils/shared_library.hpp"
+
 #include <iostream>
+#include <new>
+#include <stdexcept>
 #include <string>
 
+#include "rcutils/allocator.h"
 #include "rcutils/error_handling.h"
-
-#include "rcpputils/shared_library.hpp"
 
 namespace rcpputils
 {
@@ -30,6 +33,7 @@ SharedLibrary::SharedLibrary(const std::string & library_path)
     rcutils_get_default_allocator());
   if (ret != RCUTILS_RET_OK) {
     if (ret == RCUTILS_RET_BAD_ALLOC) {
+      rcutils_reset_error();
       throw std::bad_alloc();
     } else {
       std::string rcutils_error_str(rcutils_get_error_string().str);

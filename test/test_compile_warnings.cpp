@@ -1,4 +1,4 @@
-// Copyright 2020 Open Source Robotics Foundation, Inc.
+// Copyright 2025 cellumation GmbH
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
-#define DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
+#include <rcpputils/compile_warnings.hpp>
+struct CompileTest
+{
+  [[deprecated]]
+  void deprecated_function()
+  {
+  }
+};
 
-#if _WIN32
-#ifdef DUMMY_SHARED_LIBRARY_BUILDING_DLL
-#define DUMMY_SHARED_LIBRARY_PUBLIC __declspec(dllexport)
-#else
-#define DUMMY_SHARED_LIBRARY_PUBLIC __declspec(dllimport)
-#endif
-#else
-#define DUMMY_SHARED_LIBRARY_PUBLIC
-#endif
-
-#include <stdio.h>
-
-DUMMY_SHARED_LIBRARY_PUBLIC
-void print_name(void);
-
-#endif  // DUMMY_SHARED_LIBRARY__DUMMY_SHARED_LIBRARY_H_
+void compile_test_for_deprecation_warning_supression()
+{
+  CompileTest t;
+  RCPPUTILS_DEPRECATION_WARNING_OFF_START
+  t.deprecated_function();
+  RCPPUTILS_DEPRECATION_WARNING_OFF_STOP
+}

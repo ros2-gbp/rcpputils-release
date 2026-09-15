@@ -14,7 +14,12 @@
 
 #include <gtest/gtest.h>
 
+#include <chrono>
+#include <stdexcept>
+
 #include <rcpputils/time.hpp>
+
+#include "rcutils/time.h"
 
 TEST(test_time, test_convert_to_nanoseconds) {
   rcutils_duration_value_t expect_value = RCUTILS_S_TO_NS(5 * 60);  // 5 minutes

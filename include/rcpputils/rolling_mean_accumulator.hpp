@@ -16,19 +16,18 @@
  * Author: Víctor López
  */
 
-#ifndef RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
-#define RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
+#ifndef RCPPUTILS__ROLLING_MEAN_ACCUMULATOR_HPP_
+#define RCPPUTILS__ROLLING_MEAN_ACCUMULATOR_HPP_
 
 #include <cassert>
 #include <cstddef>
 #include <vector>
 
-namespace rcppmath
+namespace rcpputils
 {
 
+/// Computes the mean of the last accumulated elements.
 /**
- * \brief Computes the mean of the last accumulated elements.
- *
  * This is a simplified version of boost's rolling mean accumulator,
  * written to avoid dragging in boost dependencies.
  */
@@ -42,17 +41,19 @@ public:
    * \param[in] rolling_window_size The unsigned integral length of the accumulator's window length.
    */
   explicit RollingMeanAccumulator(size_t rolling_window_size)
-  : buffer_(rolling_window_size, 0.0), next_insert_(0),
-    sum_(0.0), buffer_filled_(false)
-  {
-  }
+  : buffer_(rolling_window_size, 0.0),
+    next_insert_(0),
+    sum_(0.0),
+    buffer_filled_(false)
+  {}
 
   /**
    * Collects the provided value in the accumulator's buffer.
    *
    * \param[in] val The value to accumulate.
    */
-  void accumulate(T val)
+  void
+  accumulate(T val)
   {
     sum_ -= buffer_[next_insert_];
     sum_ += val;
@@ -67,7 +68,8 @@ public:
    *
    * \return Rolling mean of the accumulated values.
    */
-  T getRollingMean() const
+  T
+  getRollingMean() const
   {
     size_t valid_data_count = buffer_filled_ * buffer_.size() + !buffer_filled_ * next_insert_;
     assert(valid_data_count > 0);
@@ -80,5 +82,7 @@ private:
   T sum_;
   bool buffer_filled_;
 };
-}  // namespace rcppmath
-#endif  // RCPPMATH__ROLLING_MEAN_ACCUMULATOR_HPP_
+
+}  // namespace rcpputils
+
+#endif  // RCPPUTILS__ROLLING_MEAN_ACCUMULATOR_HPP_
